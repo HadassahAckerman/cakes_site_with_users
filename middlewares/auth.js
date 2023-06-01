@@ -9,13 +9,8 @@ exports.auth = async(req,res,next) => {
     return res.status(401).json({msg:"You need to send token to this endpoint url 2222"})
   }
   try{
-    // מנסה לפענח את הטוקן ויכיל את כל המטען/מידע שבתוכו
     let decodeToken = jwt.verify(token, config.tokenSecret);
-    // דואג להעיבר את המאפיין של הטוקן דאטא לפונקציה הבאה בשרשור
-    // שאנחנו מזמנים בנקסט ככה שתיהיה חשופה למידע
-    // במקרה הזה האיי די שפענחנו מהטוקן
     req.tokenData = decodeToken;
-    // next() -> אם הכל בסדר לעבור לפונקציה הבאה שרשור
     next()
   }
   catch(err){
